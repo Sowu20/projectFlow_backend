@@ -29,9 +29,15 @@ SECRET_KEY = 'django-insecure-@r1y4*$q9h06#f(e!=k2wk8#lzlu$_eu+w12t+ug!2jsqb4m6(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost", 
+    "127.0.0.1", 
+    "127.0.0.1:8000"
+]
 
-CORS_ALLOWED_ORIGINS = []
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:8000"
+]
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -93,8 +99,29 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'project_flow.wsgi.application'
+FRONTEND_URL = ''
 
+WSGI_APPLICATION = 'project_flow.wsgi.application'
+ASGI_APPLICATION = 'project_flow.asgi.appliction'
+
+# Configuration Channels avec Redis
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND' : 'channels_redis.core.RedisChannelLayer',
+        'CONFIG' : {
+            "host" : [('127.0.0.1', 6379)],
+        },
+    },
+}
+
+# Configuration Gmail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = 'rpwrrbwobgwryjue'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
