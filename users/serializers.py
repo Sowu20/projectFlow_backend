@@ -35,6 +35,8 @@ class LoginSerializer(serializers.Serializer):
                 raise serializers.ValidationError("Nom d'utilisateur ou mot de passe incorrect !")
         else:
             raise serializers.ValidationError("les champs sont obligatoire !")
+        
+        return {'user': user}
 
 class RegisterUserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
