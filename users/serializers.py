@@ -7,15 +7,15 @@ from .models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model: User
-        fields = (
+        fields = [
+            'id',
             'username',
             'nom',
             'prenom',
             'email',
             'image',
-            'role',
-            'date_inscription'
-        )
+            'role'
+        ] 
 
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
@@ -36,7 +36,7 @@ class LoginSerializer(serializers.Serializer):
         else:
             raise serializers.ValidationError("les champs sont obligatoire !")
         
-        return {'user': user}
+        return data
 
 class RegisterUserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
