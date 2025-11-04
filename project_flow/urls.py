@@ -37,6 +37,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # Routes API
     path('api/user/', include('users.urls')),
+    path('api/projets/', include('projets.urls')),
     # Documentation API avec Swagger
     re_path(r'^swagger(?P<format>\.json|\.yaml)$',
             schema_view.without_ui(cache_timeout=0), name='schema-json'),
