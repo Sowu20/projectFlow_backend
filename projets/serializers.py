@@ -50,3 +50,17 @@ class ListProjetSerializer(serializers.ModelSerializer):
             'date_echeance',
             'manager'
         ]
+
+class ProjetDetailSerilizer(serializers.ModelSerializer):
+    manager = serializers.CharField(source='user.username')
+
+    class Meta:
+        model = Projet
+        fields = [
+            'id',
+            'titre',
+            'description',
+            'date_debut',
+            'date_echeance',
+            'manager'
+        ]
