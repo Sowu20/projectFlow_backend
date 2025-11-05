@@ -24,7 +24,7 @@ class RegisterProjetSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'titre',
-            'descriptions',
+            'description',
             'manager'
         ]
 
