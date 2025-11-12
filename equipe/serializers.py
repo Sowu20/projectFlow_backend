@@ -30,8 +30,7 @@ class UpdateEquipeSerializer(serializers.ModelSerializer):
         model = Equipe
         fields = [
             'membres',
-            'manager',
-            'date_creation'
+            'manager'
         ]
 
 class ListeEquipeSerializer(serializers.ModelSerializer):
