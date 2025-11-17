@@ -75,3 +75,34 @@ class ProjetDetailSerilizer(serializers.ModelSerializer):
             'manager',
             'equipe'
         ]
+
+class ProjetStatsSerializer(serializers.ModelSerializer):
+    nombre_projet = serializers.SerializerMethodField()
+    projet_termines = serializers.SerializerMethodField()
+    projet_encours = serializers.SerializerMethodField()
+    taux_avancement = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Projet
+        fields = [
+            'id',
+            'titre',
+            'nombre_projet',
+            'projet_termines',
+            'projet_encours',
+            'taux_avancement'
+        ]
+
+    def get_nombre_projet(self, obj):
+        return Projet.objects.filter(projet=obj).count()
+    
+    def get_projet_termines(self, obj):
+        return Projet.objects.filter(projet=obj, statut='termine').count()
+    
+    def get_projet_encours(self, obj):
+        return Projet.objects.filter(projet=obj, statut='en_cours').count()
+    
+    def get_taux_avancement(self, obj):
+        total = self.get_nombre_projet(obj)
+        termines = self.get_projet_termines(obj)
+        return round((termines/total * 100, 2) if total > 0 else 0)

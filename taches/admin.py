@@ -3,12 +3,12 @@ from .models import Tache
 
 class TacheAdmin(admin.ModelAdmin):
     list_display = (
+        'id',
         'titre',
         'description',
         'statut',
         'collaborateur',
-        'projet',
-        'date_echeance'
+        'projet'
     )
 
 admin.site.register(Tache, TacheAdmin)

@@ -8,7 +8,7 @@ from django.db import models
 from django.db.models import Q
 from users.models import User
 from .models import Projet
-from .serializers import ProjetSerializer, RegisterProjetSerializer, UpdateProjetSerializer, ListProjetSerializer, ProjetDetailSerilizer
+from .serializers import RegisterProjetSerializer, UpdateProjetSerializer, ListProjetSerializer, ProjetDetailSerilizer, ProjetStatsSerializer
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
@@ -72,3 +72,20 @@ class ProjetDetailView(RetrieveAPIView):
     queryset = Projet.objects.all()
     serializer_class = ProjetDetailSerilizer
     lookup_field = 'id'
+
+class ProjetStatsView(RetrieveAPIView):
+    queryset = Projet.objects.all()
+    serializer_class = ProjetStatsSerializer
+
+    def get(self, request, *args, **kwargs):
+        try:
+            projet = self.get_object()
+            serializer = self.get_serializer(projet)
+            return Response(
+                serializer.data,
+                status=status.HTTP_200_OK
+            )
+        except Projet.DoesNotExist:
+            return Response(
+                {"Projet introuvable !"}, status=status.HTTP_404_NOT_FOUND
+            )

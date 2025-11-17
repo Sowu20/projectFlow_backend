@@ -4,8 +4,8 @@ from users.models import User
 from projets.models import Projet
 
 class TacheSerializer(serializers.ModelSerializer):
-    collaborateur = serializers.PrimaryKeyRelatedField(request=User.objects.all(), required=False) 
-    projet = serializers.PrimaryKeyRelatedField(request=Projet.objects.all(), required=False)
+    collaborateur = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False) 
+    projet = serializers.PrimaryKeyRelatedField(queryset=Projet.objects.all(), required=False)
     collaborteur_username = serializers.CharField(source='user.username', read_only=True)
     projet_nom = serializers.CharField(source='projet.nom', read_only=True)
 
